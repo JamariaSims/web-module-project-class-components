@@ -1,16 +1,30 @@
-import React from 'react';
+import React, { useState } from "react";
 
-class App extends React.Component {
-  // you will need a place to store your state in this component.
-  // design `App` to be the parent component of your application.
-  // this component is going to take care of state, and any change handlers you need to work with your state
-  render() {
-    return (
-      <div>
-        <h2>Welcome to your Todo App!</h2>
-      </div>
-    );
-  }
+function App() {
+	const [list, setList] = useState([]);
+	var inputItem = "";
+	console.log(list);
+	const onButtonClick = (e) => {
+		e.preventDefault();
+		setList([...list, inputItem]);
+		e.target.value = "";
+	};
+	const onChangeHandler = (e) => {
+		e.preventDefault();
+		inputItem = e.target.value;
+	};
+	return (
+		<>
+			<h1>Todos List</h1>
+			<input type="text" onChange={onChangeHandler} />
+			<button type="button" onClick={onButtonClick}>
+				Add
+			</button>
+			{list.map((item) => (
+				<h1>{item}</h1>
+			))}
+		</>
+	);
 }
 
 export default App;
