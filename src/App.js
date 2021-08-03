@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import TodoForm from "./components/TodoForm";
+import TodoList from "./components/TodoList";
 
 function App() {
 	const [list, setList] = useState([]);
 	var inputItem = "";
-	console.log(list);
 	const onAddButton = (e) => {
 		e.preventDefault();
 		setList([...list, inputItem]);
@@ -16,21 +17,13 @@ function App() {
 	};
 	const onChangeHandler = (e) => {
 		e.preventDefault();
-		inputItem = e.target.value;
+		switch (e.target.id) {
+		}
 	};
 	return (
 		<>
-			<h1>Todos List</h1>
-			<input type="text" onChange={onChangeHandler} />
-			<button type="button" onClick={onAddButton}>
-				Add
-			</button>
-			<button type="button" onClick={onClearButton}>
-				Clear
-			</button>
-			{list.map((item) => (
-				<h1>{item}</h1>
-			))}
+			<TodoForm onChangeHandler={onChangeHandler} />
+			<TodoList />
 		</>
 	);
 }
