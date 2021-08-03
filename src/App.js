@@ -4,9 +4,14 @@ function App() {
 	const [list, setList] = useState([]);
 	var inputItem = "";
 	console.log(list);
-	const onButtonClick = (e) => {
+	const onAddButton = (e) => {
 		e.preventDefault();
 		setList([...list, inputItem]);
+		e.target.value = "";
+	};
+	const onClearButton = (e) => {
+		e.preventDefault();
+		setList([]);
 		e.target.value = "";
 	};
 	const onChangeHandler = (e) => {
@@ -17,8 +22,11 @@ function App() {
 		<>
 			<h1>Todos List</h1>
 			<input type="text" onChange={onChangeHandler} />
-			<button type="button" onClick={onButtonClick}>
+			<button type="button" onClick={onAddButton}>
 				Add
+			</button>
+			<button type="button" onClick={onClearButton}>
+				Clear
 			</button>
 			{list.map((item) => (
 				<h1>{item}</h1>
