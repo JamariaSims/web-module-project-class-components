@@ -4,8 +4,8 @@
 /* -------------------------------------------------------------------------- */
 import React from "react";
 
-function Todo() {
-	return <div></div>;
+function Todo(props) {
+	return <div>{props.item}</div>;
 }
 
 export default Todo;

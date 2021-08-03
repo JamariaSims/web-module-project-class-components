@@ -4,26 +4,34 @@ import TodoList from "./components/TodoList";
 
 function App() {
 	const [list, setList] = useState([]);
-	var inputItem = "";
-	const onAddButton = (e) => {
-		e.preventDefault();
-		setList([...list, inputItem]);
-		e.target.value = "";
-	};
-	const onClearButton = (e) => {
-		e.preventDefault();
-		setList([]);
-		e.target.value = "";
-	};
+	const [inputHandler, setInputHandler] = useState("");
 	const onChangeHandler = (e) => {
 		e.preventDefault();
-		switch (e.target.id) {
+		const { value, id } = e.target;
+		switch (id) {
+			case "add": {
+				if (inputHandler) {
+					setList([...list, inputHandler]);
+				}
+				break;
+			}
+			case "input": {
+				setInputHandler(value);
+				break;
+			}
+			case "clear": {
+				setInputHandler("");
+				break;
+			}
+			default: {
+				break;
+			}
 		}
 	};
 	return (
 		<>
-			<TodoForm onChangeHandler={onChangeHandler} />
-			<TodoList />
+			<TodoForm onChangeHandler={onChangeHandler} inputHandler={inputHandler} />
+			<TodoList list={list} />
 		</>
 	);
 }

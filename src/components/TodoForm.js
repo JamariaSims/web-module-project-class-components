@@ -1,12 +1,17 @@
 import React from "react";
 
 function TodoForm(props) {
-	const { onChangeHandler } = props;
+	const { onChangeHandler, inputHandler } = props;
 	return (
 		<>
-			<form onChange={onChangeHandler}>
+			<form>
 				<h1>Todos List</h1>
-				<input id="input" type="text" />
+				<input
+					onChange={onChangeHandler}
+					id="input"
+					type="text"
+					value={inputHandler}
+				/>
 				<button onClick={onChangeHandler} id="add" type="button">
 					Add
 				</button>

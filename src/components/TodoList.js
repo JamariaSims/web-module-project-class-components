@@ -5,9 +5,17 @@
         3.Pass Each Iteration To Todo                       
 /* -------------------------------------------------------------------------- */
 import React from "react";
+import Todo from "./Todo";
 
-function TodoList() {
-	return <></>;
+function TodoList(props) {
+	const { list } = props;
+	return (
+		<>
+			{list.map((item) => (
+				<Todo item={item} />
+			))}
+		</>
+	);
 }
 
 export default TodoList;
