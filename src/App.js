@@ -1,26 +1,40 @@
 import React, { useState } from "react";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
+import { v4 as uuid } from "uuid";
 
 function App() {
-	const [list, setList] = useState([]);
-	const [inputHandler, setInputHandler] = useState("");
+	const saveKey = "LocalSave";
+	const saveData = JSON.parse(window.localStorage.getItem(saveKey));
+	const [listHandler, setListHandler] = useState(saveData || []);
+	const [inputHandler, setInputHandler] = useState({
+		task: "",
+		id: null,
+		completed: false,
+	});
+	const ToggleSwitch = (e) => {
+		e.preventDefault();
+		console.log(e.target);
+	};
 	const onChangeHandler = (e) => {
 		e.preventDefault();
 		const { value, id } = e.target;
 		switch (id) {
 			case "add": {
-				if (inputHandler) {
-					setList([...list, inputHandler]);
-				}
+				setListHandler([...listHandler, inputHandler]);
+				window.localStorage.setItem(saveKey, JSON.stringify(listHandler));
 				break;
 			}
 			case "input": {
-				setInputHandler(value);
+				setInputHandler({
+					...inputHandler,
+					["task"]: value,
+					["id"]: Date.now(),
+				});
 				break;
 			}
 			case "clear": {
-				setInputHandler("");
+				setInputHandler({ task: "", id: null, completed: false });
 				break;
 			}
 			default: {
@@ -31,7 +45,7 @@ function App() {
 	return (
 		<>
 			<TodoForm onChangeHandler={onChangeHandler} inputHandler={inputHandler} />
-			<TodoList list={list} />
+			<TodoList list={listHandler} ToggleSwitch={ToggleSwitch} />
 		</>
 	);
 }

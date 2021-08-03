@@ -8,13 +8,13 @@ import React from "react";
 import Todo from "./Todo";
 
 function TodoList(props) {
-	const { list } = props;
+	const { list, ToggleSwitch } = props;
 	return (
-		<>
+		<div id="list">
 			{list.map((item) => (
-				<Todo item={item} />
+				<Todo item={item} ToggleSwitch={ToggleSwitch} />
 			))}
-		</>
+		</div>
 	);
 }
 

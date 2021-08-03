@@ -10,7 +10,7 @@ function TodoForm(props) {
 					onChange={onChangeHandler}
 					id="input"
 					type="text"
-					value={inputHandler}
+					value={inputHandler.task}
 				/>
 				<button onClick={onChangeHandler} id="add" type="button">
 					Add
