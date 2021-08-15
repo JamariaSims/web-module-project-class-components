@@ -1,16 +1,53 @@
-import React from 'react';
+import React, { useState } from "react";
+import TodoForm from "./components/TodoForm";
+import TodoList from "./components/TodoList";
+import { v4 as uuid } from "uuid";
 
-class App extends React.Component {
-  // you will need a place to store your state in this component.
-  // design `App` to be the parent component of your application.
-  // this component is going to take care of state, and any change handlers you need to work with your state
-  render() {
-    return (
-      <div>
-        <h2>Welcome to your Todo App!</h2>
-      </div>
-    );
-  }
+function App() {
+	const saveKey = "LocalSave";
+	const saveData = JSON.parse(window.localStorage.getItem(saveKey));
+	const [listHandler, setListHandler] = useState(saveData || []);
+	const [inputHandler, setInputHandler] = useState({
+		task: "",
+		id: null,
+		completed: false,
+	});
+	const ToggleSwitch = (e) => {
+		e.preventDefault();
+		console.log(e.target);
+	};
+	const onChangeHandler = (e) => {
+		e.preventDefault();
+		const { value, id } = e.target;
+		switch (id) {
+			case "add": {
+				setListHandler([...listHandler, inputHandler]);
+				window.localStorage.setItem(saveKey, JSON.stringify(listHandler));
+				break;
+			}
+			case "input": {
+				setInputHandler({
+					...inputHandler,
+					["task"]: value,
+					["id"]: Date.now(),
+				});
+				break;
+			}
+			case "clear": {
+				setInputHandler({ task: "", id: null, completed: false });
+				break;
+			}
+			default: {
+				break;
+			}
+		}
+	};
+	return (
+		<>
+			<TodoForm onChangeHandler={onChangeHandler} inputHandler={inputHandler} />
+			<TodoList list={listHandler} ToggleSwitch={ToggleSwitch} />
+		</>
+	);
 }
 
 export default App;
